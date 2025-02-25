@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("submitForm", () => {
+  cy.get('form button[data-cy="contact-btn-submit"]').click();
+}); //makes the test less readable if we add all as custom commands, just for selected use cases
+
+Cypress.Commands.addQuery("getById", (id) => {
+  const getFn = cy.now("get", `[data-cy= "${id}"`); //executes any command immediatly
+  return () => {
+    //const element = getFn(); //gives a function that is prepared for immediate execution
+    //return element
+    return getFn();
+  };
+});
